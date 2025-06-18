@@ -1,15 +1,15 @@
-FROM debian:buster
+FROM debian:bullseye
 
 RUN apt-get update -y && \
     apt-get upgrade -y && \
-    apt-get install vim -y && \
-    apt-get install mariadb-server -y
+    apt-get install mariadb-server mariadb-client -y
 
-COPY conf/init-db.sh /init-db.sh
-COPY conf/50-server.cnf	/etc/mysql/mariadb.conf.d/50-server.cnf
+COPY ./conf/init-db.sh /init-db.sh
+
+COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 
 RUN chmod +x /init-db.sh
 
-RUN mkdir /run/mysqld
+RUN mkdir -p /run/mysqld && chown mysql:mysql /run/mysqld
 
-ENTRYPOINT ["/init-db.sh"]
+CMD ["/init-db.sh"]
