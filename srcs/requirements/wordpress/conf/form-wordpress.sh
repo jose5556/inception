@@ -16,4 +16,4 @@ chmod +x wp-cli.phar
 ./wp-cli.phar user create guest ${WP_USER} ${WP_PASSWORD} ${WP_EMAIL} --role=subscriber --allow-root
 ./wp-cli.phar plugin install redis-cache --activate --allow-root
 ./wp-cli.phar redis enable --allow-root
-php-fpm7.4 -F
+php-fpm7.4 -F #needed for nginx
